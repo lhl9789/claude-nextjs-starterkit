@@ -1,0 +1,52 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: "Next.js StarterKit",
+    template: "%s | Next.js StarterKit",
+  },
+  description:
+    "Next.js v15, TailwindCSS v4, shadcn/ui, TypeScript로 구성된 프로덕션 레디 스타터킷.",
+  keywords: ["Next.js", "React", "TailwindCSS", "shadcn/ui", "TypeScript"],
+  authors: [{ name: "StarterKit" }],
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="ko" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
